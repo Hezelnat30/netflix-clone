@@ -1,0 +1,59 @@
+openapi: 3.1.0
+info:
+  title: Netflix Clone API Project
+  description: Netflix API Express.js & MongoDB
+
+paths:
+  /my-movies/{email}/{token}:
+    get:
+      summary: Get Favorite Movies User
+      description: Get all movies
+      parameters:
+        - in: path
+          name: email
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: token
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success getting favorite movies
+        "401":
+          description: Failed getting favorite movies, unauthorized
+  /my-movies:
+    post:
+      summary: Success Save Favorite Movies
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: example@example.com
+                token:
+                  type: string
+                  example: 123asd
+                data:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 101
+                    title:
+                      type: string
+                      example: The Godfather
+                    description:
+                      type: string
+                      example: The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.
+      responses:
+        "201":
+          description: Success add favorite movies
+        "401":
+          description: Failed save favorite movies, unauthorized
