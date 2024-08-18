@@ -9,6 +9,7 @@ router.get(
 );
 router.post("/my-movies", checkToken, UserController.AddFavoriteMovies);
 router.delete("/my-movies", checkToken, UserController.RemoveFavoriteMovies);
+router.post("/my-movies/check", checkToken, UserController.CheckFavoriteMovies);
 
 // User sign-in token
 router.post("/my-token", UserController.SignInToken);

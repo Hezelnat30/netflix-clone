@@ -42,6 +42,20 @@ async function RemoveFavoriteMovies(req, res) {
   }
 }
 
+async function CheckFavoriteMovies(req, res) {
+  const { movieID } = req.body;
+  try {
+    const user = await User.findById(req.user._id);
+    const isFavorited = await user.favoriteMovies.some(
+      (movie) => movie.id === movieID
+    );
+
+    return OK(res, 200, { isFavorited }, "Success check favorite movies");
+  } catch (error) {
+    return ERR(res, 500, "Error check favorite movies");
+  }
+}
+
 async function SignInToken(req, res) {
   try {
     const { email, password, token } = req.body;
@@ -90,6 +104,7 @@ module.exports = {
   GetFavoriteMovies,
   AddFavoriteMovies,
   RemoveFavoriteMovies,
+  CheckFavoriteMovies,
   SignInToken,
   SignOutToken,
   SignUpUser,
